@@ -1,0 +1,40 @@
+# Ignore node_modules in both frontend and backend
+RiskAPI/node_modules/
+RiskUI/node_modules/
+
+# Ignore environment variables
+RiskAPI/.env
+RiskUI/.env
+
+# Ignore build outputs
+RiskAPI/dist/
+RiskAPI/build/
+RiskUI/dist/
+RiskUI/build/
+
+# Ignore logs
+RiskAPI/logs/
+RiskAPI/*.log
+RiskAPI/npm-debug.log*
+RiskUI/npm-debug.log*
+
+# Ignore temporary files
+RiskAPI/tmp/
+RiskUI/tmp/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Angular and TypeScript cache
+RiskUI/.angular/
+RiskUI/.cache/
+RiskUI/.turbo/
+
+

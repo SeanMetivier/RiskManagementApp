@@ -1,0 +1,59 @@
+<div class ="register-container">
+    <mat-card class="register-card">
+        <h2 class="register-title">Create Your Account</h2>
+        <p class="register-subtitle">Fill in the details below to register </p>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput type="text" [(ngModel)]="user.username" placeholder="Enter A Username">
+         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <mat-icon matPrefix>mail</mat-icon>
+            <input matInput type="email" [(ngModel)]="user.emailAddress" placeholder="Enter Your Email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="user.password" placeholder="Enter A Password">
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput type="text" [(ngModel)]="user.firstName" placeholder="Enter Your First Name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput type="text" [(ngModel)]="user.lastName" placeholder="Enter Your Last Name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Organization</mat-label>
+            <mat-select [(ngModel)]="user.organizationID" placeholder="Select Your Organization">
+                <mat-option *ngFor="let org of organizations" [value]="org._id">
+                    {{org.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+
+        <button mat-raised-button color="primary" class="register-button" (click)="registerUser()">
+            Register</button>
+
+        <p class="login-text">Already have an account?</p>
+        <button mat-stroked-button color="accent" 
+            [routerLink]="'/login'" 
+            class="login-button">
+        Login Here
+        </button>
+    </mat-card>
+</div>

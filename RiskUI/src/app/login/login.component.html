@@ -1,0 +1,31 @@
+<div class="login-container">
+    <mat-card class="login-card">
+        <h2>WELCOME TO RISKTRACK</h2>
+        <p>Sign in to your account</p>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <mat-icon matPrefix>mail</mat-icon>
+            <input matInput [(ngModel)]="user.emailAddress" type="email" placeholder="Enter your email address">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput [(ngModel)]="user.password" [type]="hidePassword? 'password':'text'" placeholder="Enter your password">
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                <mat-icon>{{ hidePassword ? 'visibility': 'visibility_off'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="login-button" (click)="loginUser()">
+            Login</button>
+
+        <p class="register-text">Don't have an account?</p>
+        <button mat-stroked-button color="accent" 
+            [routerLink]="'/register'"  class="register-button">
+            Register New Account
+    </button>
+    </mat-card>
+</div>
+
