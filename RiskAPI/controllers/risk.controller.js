@@ -1,4 +1,15 @@
 const riskModel = require('../models/risk.model');
+const userModel = require('../models/user.model');
+
+//Function to calculate risk score based on likelihood and impact
+
+function calculateRiskScore(likelihood, impact) {
+    const likelihoodScores = { 'Frequent': 5, 'Likely': 4, 'Occasional': 3, 'Seldom': 2, 'Unlikely': 1 };
+    const impactScores = { 'Catastrophic': 5, 'Critical': 4, 'Moderate': 3, 'Minor': 2, 'Negligible': 1 };
+
+    return likelihoodScores[likelihood] * impactScores[impact];
+}
+
 
 exports.getAllRisks = async (req, res) => {
 
@@ -54,18 +65,26 @@ exports.createRisk = async (req, res) => {
     
 
     try{
-        const { title, description, likelihood, impact, category, status, riskOwner, organizationID } = req.body;
+        const { title, description, likelihood, impact, category, status, riskOwner } = req.body;
+        
+        const riskOwnerUser = await userModel.findOne({username: riskOwner});
+
+        if (!riskOwnerUser) {
+            return res.status(404).json({ message: "Risk owner not found" });
+        }
+
         const newRisk = new riskModel({ 
-            title, 
+            title,  
             description, 
             likelihood, 
             impact, 
             category, 
             status, 
-            riskOwner, 
-            createdBy: req.user.user._id, 
-            organizationID
+            riskOwner: riskOwnerUser._id, 
+            createdBy: req.user.userID, 
+            organizationID: req.user.organizationID
          });
+         
         await newRisk.save();
         res.status(201).json(newRisk);
 
@@ -78,7 +97,26 @@ exports.createRisk = async (req, res) => {
 exports.updateRisk = async (req, res) => {
 
     try {
-        const updatedRisk = await riskModel.findByIdAndUpdate(req.params.riskID, req.body, { new: true });
+
+        const { riskOwner, ...updateData } = req.body;
+
+        if (typeof riskOwner === 'string') {
+            const user = await userModel.findOne({ username: riskOwner.trim() });
+            
+            if (!user) {
+                return res.status(404).json({ message: "Risk owner not found" });
+            }
+            updateData.riskOwner = user._id;
+
+        } else {
+            updateData.riskOwner = riskOwner;
+        }
+
+        if (updateData.likelihood && updateData.impact) {
+            updateData.riskScore = calculateRiskScore(updateData.likelihood, updateData.impact);
+        }
+
+        const updatedRisk = await riskModel.findByIdAndUpdate(req.params.riskID, updateData, { new: true });
         if (!updatedRisk) {
             res.status(404).json({ message: "Risk not found" });
         }

@@ -1,29 +1,28 @@
 .dashboard-container {
-    height: 100vh;
-    display: flex;
-  }
-  
-  mat-drawer {
-    width: 250px;
-    padding: 20px;
-    background-color: #d9d9d9;
-  }
+  height: 100vh;
+  display: flex;
+}
 
-  mat-nav-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+mat-drawer {
+  width: 250px;
+  padding: 20px;
+  background-color: #d9d9d9;
+}
+
+mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 button {
-    width: 100%;
-    text-align: left;
-    font-weight: bold;
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
 }
 
-  
-  mat-drawer-content {
-    padding: 20px;
-    flex-grow: 1;
-  }
-  
+
+mat-drawer-content {
+  padding: 20px;
+  flex-grow: 1;
+}

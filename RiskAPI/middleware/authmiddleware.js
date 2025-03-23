@@ -32,7 +32,8 @@ exports.authMiddleware =  async (req, res, next) => {
         }
         req.user = {
             userID: user._id,
-            roleName: user.roleID.roleName
+            roleName: user.roleID.roleName,
+            organizationID: user.organizationID,
         };
 
         console.log("User role: ", req.user);

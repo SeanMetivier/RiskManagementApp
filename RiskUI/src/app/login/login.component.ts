@@ -41,7 +41,15 @@ export class LoginComponent {
         next: (response) => {
           console.log('User successfully logged in:', response);
           alert('User successfully logged in!');
+
           localStorage.setItem('token', response.token);
+
+          localStorage.setItem('user', JSON.stringify({
+            userID: response.userID,
+            roleName: response.roleName,
+            organizationID: response.organizationID
+          }));
+
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
@@ -56,13 +64,13 @@ export class LoginComponent {
   }
 
 
-
-  
-
 }
 
 interface LoginResponse {
   token: string;
+  userID: string;
+  roleName: string;
+  organizationID: string;
 }
 
 

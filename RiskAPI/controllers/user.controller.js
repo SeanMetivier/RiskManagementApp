@@ -133,7 +133,8 @@ exports.loginUser = async ( req, res ) => {
 res.status(200).json({ message: "User logged in successfully", 
     token, 
     userID: user._id,
-    roleName: user.roleID.roleName
+    roleName: user.roleID.roleName,
+    organizationID: user.organizationID,
 });
 
 } catch (error) {
