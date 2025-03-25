@@ -1,6 +1,9 @@
 <h1>Risk Registry</h1>
 
 <button mat-raised-button color="primary" (click)="openCreateRiskDialog()">Create Risk</button>
+<button mat-raised-button color="primary" routerLink="/controlobjectives">View Controls & Objectives</button>
+
+
 
 <table mat-table [dataSource]="risks" class="mat-elevation-z8">
   
@@ -38,6 +41,7 @@
     <td mat-cell *matCellDef="let risk">
       <button mat-button color="primary" (click)="openEditDialog(risk)">Edit</button>
       <button mat-button color="warn" (click)="deleteRisk(risk._id)">Delete</button>
+      <button mat-button color="accent" (click)="openLinkControlObjectiveDialog(risk)">Link Control Objective</button>
     </td>
   </ng-container>
 

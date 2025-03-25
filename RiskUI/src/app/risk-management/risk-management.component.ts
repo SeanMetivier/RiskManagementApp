@@ -4,12 +4,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RiskDialogComponent } from '../risk-dialog/risk-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
-
+import { RiskControlObjectiveComponent } from '../risk-control-objective/risk-control-objective.component';
+import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-risk-management',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatDialogModule],
+  imports: [MatTableModule, MatButtonModule, MatDialogModule, RouterModule],
   templateUrl: './risk-management.component.html',
   styleUrl: './risk-management.component.css'
 })
@@ -18,7 +20,7 @@ export class RiskManagementComponent implements OnInit {
 
   displayedColumns: string[] = ['title', 'description', 'likelihood', 'impact', 'riskScore', 'actions'];
 
-  constructor(private riskService: RiskService, private dialog: MatDialog) { }
+  constructor(private riskService: RiskService, private dialog: MatDialog, private http: HttpClient) { }
 
   ngOnInit() {
     this.fetchRisks();
@@ -66,7 +68,8 @@ export class RiskManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(RiskDialogComponent, {
       data: {
         ...risk,
-        riskOwner: risk.riskOwner?.username || ''}
+        riskOwner: risk.riskOwner?.username || ''
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -86,16 +89,36 @@ export class RiskManagementComponent implements OnInit {
   deleteRisk(riskId: string) {
 
     if (confirm('Are you sure you want to delete this risk?')) {
-    
-    this.riskService.deleteRisk(riskId).subscribe({
-      next: () => {
-        this.fetchRisks(); // Refresh the risk list after deletion
-      },
-      error: (error) => {
-        console.error('Error deleting risk:', error);
-      }
-    });
+
+      this.riskService.deleteRisk(riskId).subscribe({
+        next: () => {
+          this.fetchRisks(); // Refresh the risk list after deletion
+        },
+        error: (error) => {
+          console.error('Error deleting risk:', error);
+        }
+      });
+    }
+
   }
 
+  openLinkControlObjectiveDialog(risk: any) {
+    const dialogRef = this.dialog.open(RiskControlObjectiveComponent, {
+      data: { riskID: risk._id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.http.post('http://localhost:3000/riskcontrolObjectives', result).subscribe({
+          next: () => {
+            console.log('Control objective linked successfully');
+            this.fetchRisks(); // Refresh the risk list after linking
+          },
+          error: (error) => {
+            console.error('Error linking control objective:', error);
+          }
+        });
+      }
+    });
   }
 }

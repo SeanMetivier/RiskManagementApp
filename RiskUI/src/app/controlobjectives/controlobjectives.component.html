@@ -1,0 +1,52 @@
+<h2>Control Objectives</h2>
+
+<table mat-table [dataSource]="controlObjectives" class="mat-elevation-z8 full-width-table">
+
+    <ng-container matColumnDef="objectiveID">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let obj">{{ obj.objectiveID }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="objectiveTitle">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let obj">{{ obj.objectiveTitle }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let obj">{{ obj.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let obj">
+            <button mat-button color="primary" (click)="openLinkDialog(obj)">Link to Risk</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['objectiveID', 'objectiveTitle', 'description', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['objectiveID', 'objectiveTitle', 'description', 'actions']"></tr>
+</table>
+
+<h2 style="margin-top: 30px;">Controls</h2>
+
+<table mat-table [dataSource]="controls" class="mat-elevation-z8 full-width-table">
+
+    <ng-container matColumnDef="controlID">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let control">{{ control.controlID }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="topic">
+        <th mat-header-cell *matHeaderCellDef>Topic</th>
+        <td mat-cell *matCellDef="let control">{{ control.topic }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let control">{{ control.description }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['controlID', 'topic', 'description']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['controlID', 'topic', 'description']"></tr>
+</table>

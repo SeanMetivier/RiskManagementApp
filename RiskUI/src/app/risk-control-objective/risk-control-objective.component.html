@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Link Risk and Control Objective</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="linkForm">
+
+        <!-- Control Objective Selection -->
+        <ng-container *ngIf="isLinkingRiskToObjective">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Control Objective</mat-label>
+                <mat-select formControlName="controlObjectiveID">
+                    <mat-option *ngFor="let obj of controlObjectives" [value]="obj._id">
+                        {{ obj.objectiveID }} - {{ obj.objectiveTitle }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+
+        <!-- objectiveID is passed in -->
+        <ng-container *ngIf="isLinkingObjectiveToRisk">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Risk</mat-label>
+                <mat-select formControlName="riskID">
+                    <mat-option *ngFor="let risk of risks" [value]="risk._id">
+                        {{ risk.title }} ({{ risk.category }})
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+
+        <!-- Justification  -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Justification</mat-label>
+            <textarea matInput formControlName="justification" rows="3"></textarea>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Link</button>
+</mat-dialog-actions>
