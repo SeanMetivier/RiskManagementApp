@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { MitigationPlanDialogComponent } from '../mitigation-plan-dialog/mitigation-plan-dialog.component';
 import { MitigationPlanCommentsComponent } from '../mitigation-plan-comments/mitigation-plan-comments.component';
 
+
 @Component({
   selector: 'app-mitigation-plans',
   standalone: true,
@@ -19,7 +20,7 @@ import { MitigationPlanCommentsComponent } from '../mitigation-plan-comments/mit
 export class MitigationPlansComponent implements OnInit {
 
   mitigationPlans: any[] = [];
-  displayedColumns: string[] = ['risk', 'description', 'assignedTo', 'status', 'dueDate', 'actions'];
+  displayedColumns: string[] = ['risk', 'description', 'planDetails', 'assignedTo', 'status', 'dueDate', 'actions'];
 
   constructor(
     private mitigationPlanService: MitigationPlanService,
@@ -41,8 +42,15 @@ export class MitigationPlansComponent implements OnInit {
     });
   }
 
+  expandedPlanId: string | null = null;
+
+  toggleExpand(id: string) {
+    this.expandedPlanId = this.expandedPlanId === id ? null : id;
+  }
+
+
   openCreateDialog() {
-    const dialogRef = this.dialog.open(MitigationPlanDialogComponent,{
+    const dialogRef = this.dialog.open(MitigationPlanDialogComponent, {
       width: '600px'
     });
 
@@ -82,7 +90,7 @@ export class MitigationPlansComponent implements OnInit {
   viewComments(plan: any) {
     this.dialog.open(MitigationPlanCommentsComponent, {
       width: '600px',
-      data: { mitigationPlanID: plan._id}
+      data: { mitigationPlanID: plan._id }
     }
 
     )

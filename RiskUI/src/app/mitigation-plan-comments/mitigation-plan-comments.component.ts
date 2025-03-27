@@ -33,7 +33,11 @@ export class MitigationPlanCommentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userID = localStorage.getItem('userID') || '';
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      this.userID = user.userID;
+    }
     this.initForm();
     this.fetchComments();
   }
@@ -59,10 +63,11 @@ export class MitigationPlanCommentsComponent implements OnInit {
     if (this.commentForm.valid) {
       const newComment = {
         mitigationPlanID: this.data.mitigationPlanID,
-        riskID: null,
         author: this.userID,
         text: this.commentForm.value.text
       };
+
+      console.log('Submitting comment:', newComment);
 
       this.commentService.createComment(newComment).subscribe({
         next: (data) => {

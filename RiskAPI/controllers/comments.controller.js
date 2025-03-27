@@ -30,10 +30,9 @@ exports.getCommentByRisk = async (req, res) => {
 exports.getCommentByMitigationPlan = async (req, res) => {
     try{
         const comments = await CommentModel.find({ mitigationPlanID: req.params.mitigationPlanID })
+            .sort({ createdAt:-1})
             .populate('author','firstName lastName');
-        if (comments.length === 0) {
-            return res.status(404).json({ message: "No comments found for this Mitigation Plan ID" });
-        }
+        
         res.status(200).json(comments);
     } catch (error) {
         res.status(500).json({ message: "Error while fetching Mitigation Plan Comments", error });

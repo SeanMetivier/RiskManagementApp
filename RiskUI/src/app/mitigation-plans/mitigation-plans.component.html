@@ -14,6 +14,20 @@
         <td mat-cell *matCellDef="let plan"> {{ plan.description }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="planDetails">
+        <th mat-header-cell *matHeaderCellDef> Plan Details </th>
+        <td mat-cell *matCellDef="let plan">
+          <div class="plan-details-wrapper">
+            <span [innerText]="expandedPlanId === plan._id ? plan.planDetails || 'No details provided' : (plan.planDetails?.length > 100 ? (plan.planDetails | slice:0:100) + '...' : plan.planDetails || 'No details provided')">
+            </span>
+            <a *ngIf="plan.planDetails?.length > 100" (click)="toggleExpand(plan._id)" class="toggle-link">
+              {{ expandedPlanId === plan._id ? 'View Less' : 'View More' }}
+            </a>
+          </div>
+        </td>
+      </ng-container>
+      
+
     <ng-container matColumnDef="assignedTo">
         <th mat-header-cell *matHeaderCellDef> Assigned To </th>
         <td mat-cell *matCellDef="let plan"> {{ plan.assignedTo.firstName }} {{ plan.assignedTo.lastName }} </td>

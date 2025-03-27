@@ -60,8 +60,8 @@ exports.getMitigationPlansByAssignedTo = async ( req, res ) => {
 exports.createMitigationPlan = async (req, res) => {
 
     try{
-        const { title, description, riskID, assignedTo, status, dueDate} = req.body;
-        const newMitigationPlan = new MitigationPlanModel({ title, description, riskID, assignedTo, status, dueDate });
+        const {  description, planDetails, riskID, assignedTo, status, dueDate} = req.body;
+        const newMitigationPlan = new MitigationPlanModel({  description, planDetails, riskID, assignedTo, status, dueDate });
         await newMitigationPlan.save();
         res.status(201).json(newMitigationPlan);
     } catch (error){

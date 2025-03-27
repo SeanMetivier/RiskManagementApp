@@ -5,7 +5,7 @@
         <mat-list-item *ngFor="let comment of comments">
             <div class="comment-author">
                 <strong>{{ comment.author.firstName }} {{ comment.author.lastName }}</strong>
-                <small class="timestamp">{{ comment.timestamp | date: 'short' }}</small>
+                <small class="timestamp">{{ comment.createdAt | date: 'short' }}</small>
             </div>
             <div class="comment-text">{{ comment.text }}</div>
         </mat-list-item>

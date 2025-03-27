@@ -41,6 +41,7 @@ export class MitigationPlanDialogComponent implements OnInit {
     this.mitigationPlanForm = this.fb.group({
       riskID: ['', Validators.required],
       description: ['', Validators.required],
+      planDetails: ['', Validators.required],
       assignedTo: ['', Validators.required],
       dueDate: ['', Validators.required],
       status: ['Pending', Validators.required]

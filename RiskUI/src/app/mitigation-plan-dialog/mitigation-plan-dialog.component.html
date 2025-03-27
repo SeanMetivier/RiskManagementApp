@@ -15,6 +15,11 @@
     </mat-form-field>
 
     <mat-form-field>
+      <mat-label>Plan Details</mat-label>
+      <textarea matInput formControlName="planDetails" rows="4" required placeholder="Enter steps to mitigate the risk"></textarea>
+    </mat-form-field>
+    
+    <mat-form-field>
       <mat-label>Assigned To</mat-label>
       <mat-select formControlName="assignedTo">
         <mat-option *ngFor="let user of users" [value]="user._id">{{ user.firstName }} {{ user.lastName }}</mat-option>

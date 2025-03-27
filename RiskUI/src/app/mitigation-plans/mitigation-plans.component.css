@@ -1,0 +1,13 @@
+.plan-details-wrapper {
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+  
+  .toggle-link {
+    color: #7ccff9;
+    cursor: pointer;
+    margin-left: 6px;
+    font-size: 13px;
+  }
+  
