@@ -19,4 +19,23 @@ h1 {
     background-color: #f4f4f4;
     font-weight: bold;
   }
+
+  .priority-low {
+    background-color: #d4edda; 
+    color: #27bd4a;
+    font-weight: bold;
+  }
+  
+  .priority-medium {
+    background-color: #fff3cd; 
+    color: #e4e12c;
+    font-weight: bold;
+  }
+  
+  .priority-high {
+    background-color: #f8d7da; 
+    color: #e41313;
+    font-weight: bold;
+  }
+  
   

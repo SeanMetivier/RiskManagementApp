@@ -6,13 +6,13 @@
 
 
 <table mat-table [dataSource]="risks" class="mat-elevation-z8">
-  
+
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Title </th>
     <td mat-cell *matCellDef="let risk"> {{ risk.title }} </td>
   </ng-container>
 
-  
+
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef> Description </th>
     <td mat-cell *matCellDef="let risk"> {{ risk.description }} </td>
@@ -24,17 +24,25 @@
     <td mat-cell *matCellDef="let risk"> {{ risk.likelihood }} </td>
   </ng-container>
 
-  
+
   <ng-container matColumnDef="impact">
     <th mat-header-cell *matHeaderCellDef> Impact </th>
     <td mat-cell *matCellDef="let risk"> {{ risk.impact }} </td>
   </ng-container>
 
-  
+
   <ng-container matColumnDef="riskScore">
     <th mat-header-cell *matHeaderCellDef> Risk Score </th>
     <td mat-cell *matCellDef="let risk"> {{ risk.riskScore }} </td>
   </ng-container>
+
+  <ng-container matColumnDef="priority">
+    <th mat-header-cell *matHeaderCellDef> Priority </th>
+    <td mat-cell *matCellDef="let risk" [ngClass]="getPriorityClass(risk.riskScore)">
+      {{ getRiskPriority(risk.riskScore) }}
+    </td>
+  </ng-container>
+
 
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
@@ -45,6 +53,7 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['title', 'description', 'likelihood', 'impact', 'riskScore', 'actions']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['title', 'description', 'likelihood', 'impact', 'riskScore', 'actions'];"></tr>
+  <tr mat-header-row *matHeaderRowDef="['title', 'description', 'likelihood', 'impact', 'riskScore','priority', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['title', 'description', 'likelihood', 'impact', 'riskScore','priority', 'actions'];">
+  </tr>
 </table>

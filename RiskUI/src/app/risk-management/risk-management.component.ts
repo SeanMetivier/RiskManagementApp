@@ -7,18 +7,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { RiskControlObjectiveComponent } from '../risk-control-objective/risk-control-objective.component';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-risk-management',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatDialogModule, RouterModule],
+  imports: [MatTableModule, MatButtonModule, MatDialogModule, RouterModule, CommonModule],
   templateUrl: './risk-management.component.html',
   styleUrl: './risk-management.component.css'
 })
 export class RiskManagementComponent implements OnInit {
   risks: any[] = [];
 
-  displayedColumns: string[] = ['title', 'description', 'likelihood', 'impact', 'riskScore', 'actions'];
+  displayedColumns: string[] = ['title', 'description', 'likelihood', 'impact', 'riskScore','priority', 'actions'];
 
   constructor(private riskService: RiskService, private dialog: MatDialog, private http: HttpClient) { }
 
@@ -121,4 +122,19 @@ export class RiskManagementComponent implements OnInit {
       }
     });
   }
+
+  getRiskPriority(score: number): string {
+    if (score <= 5) return 'Low';
+    if (score <= 15) return 'Medium';
+    return 'High';
+  }
+  
+  getPriorityClass(score: number): string {
+    if (score <= 5) return 'priority-low';
+    if (score <= 15) return 'priority-medium';
+    return 'priority-high';
+  }
+  
+
+
 }

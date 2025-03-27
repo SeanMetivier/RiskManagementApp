@@ -16,6 +16,7 @@ exports.getAllComments = async (req, res) => {
 exports.getCommentByRisk = async (req, res) => {
     try{
         const comments = await CommentModel.find({ riskID: req.params.riskID })
+            .sort({ createdAt:-1})
             .populate('author','firstName lastName');
         if (comments.length === 0) {
             return res.status(404).json({ message: "No comments found for this Risk ID" });

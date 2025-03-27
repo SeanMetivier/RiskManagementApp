@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Comments</h2>
+
+<mat-dialog-content>
+    <mat-list *ngIf="comments.length > 0; else noComments">
+        <mat-list-item *ngFor="let comment of comments">
+            <div class="comment-author">
+                <strong>{{ comment.author.firstName }} {{ comment.author.lastName }}</strong>
+                <small class="timestamp">{{ comment.timestamp | date: 'short' }}</small>
+            </div>
+            <div class="comment-text">{{ comment.text }}</div>
+        </mat-list-item>
+    </mat-list>
+
+    <ng-template #noComments>
+        <p>No comments yet.</p>
+    </ng-template>
+
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="comment-form">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Add Comment</mat-label>
+            <textarea matInput rows="3" formControlName="text" required></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">Post Comment</button>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()">Close</button>
+</mat-dialog-actions>

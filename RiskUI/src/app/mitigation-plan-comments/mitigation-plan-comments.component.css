@@ -1,0 +1,24 @@
+.comment-author {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.timestamp {
+    font-style: italic;
+}
+
+.comment-text {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.comment-form {
+    margin-top: 16px;
+}
